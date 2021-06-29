@@ -1,3 +1,5 @@
+// Webpack Common config
+
 module.exports = {
     module: {
         rules: [
