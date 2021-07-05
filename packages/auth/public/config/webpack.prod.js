@@ -5,18 +5,19 @@ const packageJson = require('../package.json');
 
 const domain = process.env.PRODUCTION_DOMAIN;
 
+// Webpack Prod configuration
 const prodConfig = {
     mode: 'production',
     output: {
         filename: '[name].[contenthash].js',
-        publicPath: '/container/latest/',
+        publicPath: '/marketing/latest/',
     },
     plugins: [
         new ModuleFederationPlugin({
-          name: 'container',
-          remotes: {
-              marketing: `marketing@${domain}/marketing/latest/remoteEntry.js`,
-              auth: `auth@${domain}/auth/latest/remoteEntry.js`
+          name: 'marketing',
+          filename: 'remoteEntry.js',
+          exposes: {
+            './MarketingApp': './src/bootstrap'
           },
           shared: packageJson.dependencies
         })
